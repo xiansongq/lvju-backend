@@ -30,4 +30,7 @@ public class RuoYiConfig {
      */
     private String copyrightYear;
 
+    /* 返回文件上传路径 */
+    private String filepath;
+
 }
