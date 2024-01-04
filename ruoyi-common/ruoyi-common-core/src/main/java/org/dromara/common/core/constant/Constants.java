@@ -77,5 +77,10 @@ public interface Constants {
      */
     Long TOP_PARENT_ID = 0L;
 
+    /**
+     * 资源映射路径 前缀
+     */
+    public static final String RESOURCE_PREFIX = "/profile";
+
 }
 

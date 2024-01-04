@@ -113,6 +113,12 @@
             <groupId>org.dromara</groupId>
             <artifactId>ruoyi-common-core</artifactId>
         </dependency>
+        <dependency>
+            <groupId>org.dromara</groupId>
+            <artifactId>ruoyi-system</artifactId>
+        </dependency>
+
+
         <!--swagger-->
 <!--        <dependency>-->
 <!--            <groupId>com.github.xiaoymin</groupId>-->

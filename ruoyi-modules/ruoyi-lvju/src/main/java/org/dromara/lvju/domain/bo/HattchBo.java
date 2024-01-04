@@ -32,17 +32,7 @@ public class HattchBo extends BaseEntity {
     @NotNull(message = "房源id不能为空", groups = { AddGroup.class, EditGroup.class })
     private Long houseid;
 
-    /**
-     * 原始名称
-     */
-    @NotBlank(message = "原始名称不能为空", groups = { AddGroup.class, EditGroup.class })
-    private String name;
 
-    /**
-     * 保存路径
-     */
-    @NotBlank(message = "保存路径不能为空", groups = { AddGroup.class, EditGroup.class })
-    private String path;
 
     /**
      * 文件类型 0图片 1视频
@@ -50,8 +40,11 @@ public class HattchBo extends BaseEntity {
     @NotBlank(message = "文件类型 0图片 1视频不能为空", groups = { AddGroup.class, EditGroup.class })
     private String htype;
 
-    /*旧路径*/
-    private String oldPath;
+
+
+    /* ossID*/
+    @NotNull(message = "ossId不能为空", groups = { AddGroup.class, EditGroup.class })
+    private Long ossId;
 
 
 }

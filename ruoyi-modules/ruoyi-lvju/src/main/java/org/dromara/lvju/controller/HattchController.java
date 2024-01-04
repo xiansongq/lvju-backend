@@ -1,6 +1,7 @@
 package org.dromara.lvju.controller;
 
 import java.io.File;
+import java.util.Arrays;
 import java.util.List;
 
 import lombok.RequiredArgsConstructor;
@@ -9,6 +10,7 @@ import jakarta.validation.constraints.*;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import lombok.val;
 import org.dromara.lvju.utils.FileUtils;
+import org.dromara.system.service.ISysOssService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.Validated;
 import org.dromara.common.idempotent.annotation.RepeatSubmit;
@@ -38,6 +40,7 @@ import org.dromara.common.mybatis.core.page.TableDataInfo;
 public class HattchController extends BaseController {
 
     private final IHattchService hattchService;
+    private final ISysOssService ossService;
 
     /**
      * 查询房源附件信息列表
@@ -90,15 +93,13 @@ public class HattchController extends BaseController {
     @RepeatSubmit()
     @PutMapping()
     public R<Void> edit(@Validated(EditGroup.class) @RequestBody HattchBo bo) {
-        /*检查前后两次的文件 路径是否变化*/
-        if (!bo.getOldPath().equals(bo.getPath())) {
-            /* 删除以前的文件 */
-            if (FileUtils.delFile(bo.getOldPath()) != 1) {
-                /*源文件删除失败 不更新数据*/
-                /*先删除新上传的文件*/
-                FileUtils.delFile(bo.getPath());
-                return R.fail("修改失败");
-            }
+        // 首先根据id为什么查询Hattch的信息
+        val hattchVo = hattchService.queryById(bo.getId());
+        // 判断提交的ossId与查询的是否相同
+        /*检查前后两次的文件 ossId是否相同*/
+        /*不同则是更新了文件 需要删除旧的文件*/
+        if (bo.getOssId() != hattchVo.getOssId()) {
+            ossService.deleteWithValidByIds(Arrays.asList(hattchVo.getOssId()), true);
         }
         /*直接修改文件*/
         return toAjax(hattchService.updateByBo(bo));
@@ -114,16 +115,22 @@ public class HattchController extends BaseController {
     @DeleteMapping("/{ids}")
     public R<Void> remove(@NotEmpty(message = "主键不能为空")
                           @PathVariable String[] ids) {
-        /* 1.首先需要先删除对应的文件*/
+
+
+        List<String> idList = Arrays.asList(ids);
         /*2.根据传入的获取对应的信息*/
-        for (String id : ids) {
+        for (String id : idList) {
             HattchVo hattchVo = hattchService.queryById(id);
-            if (FileUtils.delFile(hattchVo.getPath()) == 1) {
-                hattchService.deleteWithValidByIds(List.of(id), true);
-            } else {
-                return R.fail(id.toString() + "删除失败");
+            try {
+                /* 1.删除对应的文件*/
+                ossService.deleteWithValidByIds(List.of(hattchVo.getOssId()), true);
+
+            } catch (Exception e) {
+                idList.remove(id);
+                return R.ok(hattchVo.getId() + "删除失败");
             }
         }
+        hattchService.deleteWithValidByIds(idList, true);
         return R.ok("删除成功");
     }
 }

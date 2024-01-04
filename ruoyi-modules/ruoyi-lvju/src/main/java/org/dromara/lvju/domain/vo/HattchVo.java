@@ -7,6 +7,7 @@ import org.dromara.common.excel.annotation.ExcelDictFormat;
 import org.dromara.common.excel.convert.ExcelDictConvert;
 import io.github.linpeilie.annotations.AutoMapper;
 import lombok.Data;
+import org.dromara.system.domain.vo.SysOssVo;
 
 import java.io.Serial;
 import java.io.Serializable;
@@ -34,23 +35,19 @@ public class HattchVo implements Serializable {
     @ExcelProperty(value = "id")
     private String id;
 
+    /*
+    * oosId
+    * */
+    @ExcelProperty(value = "oosId")
+    private long ossId;
+
+
     /**
      * 房源id
      */
     @ExcelProperty(value = "房源id")
     private Long houseid;
 
-    /**
-     * 原始名称
-     */
-    @ExcelProperty(value = "原始名称")
-    private String name;
-
-    /**
-     * 保存路径
-     */
-    @ExcelProperty(value = "保存路径")
-    private String path;
 
     /**
      * 文件类型 0图片 1视频
@@ -65,8 +62,10 @@ public class HattchVo implements Serializable {
     @ExcelProperty(value = "创建时间")
     private Date createTime;
 
+
     /*旧路径*/
     private String oldPath;
 
+    private SysOssVo ossInfo;
 
 }

@@ -1,4 +1,4 @@
-package org.dromara.lvju.service.impl;
+package org.dromara.system.service.impl;
 
 import org.dromara.common.core.utils.MapstructUtils;
 import org.dromara.common.core.utils.StringUtils;
@@ -9,11 +9,11 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
-import org.dromara.lvju.domain.bo.SupplierBo;
-import org.dromara.lvju.domain.vo.SupplierVo;
-import org.dromara.lvju.domain.Supplier;
-import org.dromara.lvju.mapper.SupplierMapper;
-import org.dromara.lvju.service.ISupplierService;
+import org.dromara.system.domain.bo.SupplierBo;
+import org.dromara.system.domain.vo.SupplierVo;
+import org.dromara.system.domain.Supplier;
+import org.dromara.system.mapper.SupplierMapper;
+import org.dromara.system.service.ISupplierService;
 
 import java.util.List;
 import java.util.Map;

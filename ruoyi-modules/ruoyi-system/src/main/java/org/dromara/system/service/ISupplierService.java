@@ -1,10 +1,9 @@
-package org.dromara.lvju.service;
+package org.dromara.system.service;
 
-import org.dromara.lvju.domain.Supplier;
-import org.dromara.lvju.domain.vo.SupplierVo;
-import org.dromara.lvju.domain.bo.SupplierBo;
-import org.dromara.common.mybatis.core.page.TableDataInfo;
 import org.dromara.common.mybatis.core.page.PageQuery;
+import org.dromara.common.mybatis.core.page.TableDataInfo;
+import org.dromara.system.domain.bo.SupplierBo;
+import org.dromara.system.domain.vo.SupplierVo;
 
 import java.util.Collection;
 import java.util.List;

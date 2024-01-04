@@ -37,6 +37,10 @@ import java.util.UUID;
 @RestController
 @RequestMapping("/lvju/file")
 public class FileController extends BaseController {
+    /**
+     * 系统基础配置
+     */
+    private final RuoYiConfig ruoyiConfig;
 
     @SaCheckPermission("lvju:file:upload")
     @Log(title = "文件上传", businessType = BusinessType.INSERT)
@@ -45,6 +49,17 @@ public class FileController extends BaseController {
         if (ObjectUtil.isNull(file)) {
             return R.fail("上传文件不能为空");
         }
-       return R.ok(FileUtils.upload("D:/upload/",file));
+        System.out.println("controller-"+ruoyiConfig.getUploadPath());
+        String url = "";
+        String filename = file.getOriginalFilename();
+        try {
+            url = FileUtils.upload(ruoyiConfig.getUploadPath(), file);
+        } catch (IOException e) {
+            return R.fail(filename + " 文件上传失败");
+        }
+        FileVo fileVo = new FileVo();
+        fileVo.setFilename(filename);
+        fileVo.setFilepath(url);
+        return R.ok(fileVo);
     }
 }

@@ -31,6 +31,45 @@ public class RuoYiConfig {
     private String copyrightYear;
 
     /* 返回文件上传路径 */
-    private String filepath;
+    private  String profile;
+
+    public  String getProfile() {
+        System.out.println("profile++"+ profile);
+        return profile;
+    }
+
+    /**
+     * 获取导入上传路径
+     */
+    public  String getImportPath()
+    {
+        return getProfile() + "/import";
+    }
+
+    /**
+     * 获取头像上传路径
+     */
+    public  String getAvatarPath()
+    {
+        return getProfile() + "/avatar";
+    }
+
+    /**
+     * 获取下载路径
+     */
+    public  String getDownloadPath()
+    {
+        return getProfile() + "/download/";
+    }
+
+    /**
+     * 获取上传路径
+     */
+    public  String getUploadPath()
+    {
+        return getProfile() + "/upload";
+    }
+
+
 
 }

@@ -1,8 +1,8 @@
-package org.dromara.lvju.mapper;
+package org.dromara.system.mapper;
 
-import org.dromara.lvju.domain.Supplier;
-import org.dromara.lvju.domain.vo.SupplierVo;
 import org.dromara.common.mybatis.core.mapper.BaseMapperPlus;
+import org.dromara.system.domain.Supplier;
+import org.dromara.system.domain.vo.SupplierVo;
 
 /**
  * 供应商信息Mapper接口

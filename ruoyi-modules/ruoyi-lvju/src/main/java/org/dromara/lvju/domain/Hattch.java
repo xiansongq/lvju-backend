@@ -27,21 +27,10 @@ public class Hattch extends BaseEntity {
     @TableId(value = "id")
     private String id;
 
-    /**
-     * 房源id
-     */
+    /*房源id*/
     private Long houseid;
-
-    /**
-     * 原始名称
-     */
-    private String name;
-
-    /**
-     * 保存路径
-     */
-    private String path;
-
+    /*文件保存的oosid*/
+    private long ossId;
     /**
      * 文件类型 0图片 1视频
      */

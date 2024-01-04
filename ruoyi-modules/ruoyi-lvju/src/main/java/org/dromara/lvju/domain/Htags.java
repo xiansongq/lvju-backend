@@ -8,15 +8,15 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * 供应商信息对象 lv_supplier
+ * 房源标签信息对象 lv_htags
  *
- * @author xsQian
- * @date 2023-12-19
+ * @author seky
+ * @date 2024-01-02
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("lv_supplier")
-public class Supplier extends BaseEntity {
+@TableName("lv_htags")
+public class Htags extends BaseEntity {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -25,43 +25,37 @@ public class Supplier extends BaseEntity {
      * id
      */
     @TableId(value = "id")
-    private Long id;
+    private String id;
 
     /**
-     * 用户编号
+     * 房源编号
      */
-    private String userid;
+    private String houseid;
 
     /**
-     * 公司名称
-     */
-    private String company;
-
-    /**
-     * 联系人
+     * 标签名称
      */
     private String name;
 
     /**
-     * 身份证号
+     * 状态
      */
-    private String sdnum;
-
-    /**
-     * 联系电话
-     */
-    private String iphone;
-
-    /**
-     * 1：供应商 2：代理商 3：个人
-     */
-    private Long stype;
+    private Long status;
 
     /**
      * 是否删除
      */
-    @TableLogic
-    private String delFlag;
+    private Long ideleted;
+
+    /**
+     * 创建时间
+     */
+    private String createon;
+
+    /**
+     * 修改时间
+     */
+    private String modifyon;
 
 
 }
