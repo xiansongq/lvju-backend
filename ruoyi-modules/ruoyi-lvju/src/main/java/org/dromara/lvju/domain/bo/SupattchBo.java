@@ -13,7 +13,7 @@ import jakarta.validation.constraints.*;
  * 供应商资质证明材料业务对象 lv_supattch
  *
  * @author xsQian
- * @date 2023-12-18
+ * @date 2024-01-05
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -23,44 +23,43 @@ public class SupattchBo extends BaseEntity {
     /**
      * id
      */
-    @NotNull(message = "id不能为空", groups = { EditGroup.class })
+    @NotNull(message = "id不能为空", groups = {EditGroup.class})
     private Long id;
 
     /**
      * 用户ID
      */
-    @NotNull(message = "用户ID不能为空", groups = { AddGroup.class, EditGroup.class })
+    @NotNull(message = "用户ID不能为空", groups = {AddGroup.class, EditGroup.class})
     private Long userid;
 
     /**
-     * 附件编号
+     * ossId
      */
-    @NotBlank(message = "附件编号不能为空", groups = { AddGroup.class, EditGroup.class })
-    private String supplierid;
+    @NotNull(message = "ossId不能为空", groups = {AddGroup.class, EditGroup.class})
+    private Long ossId;
 
     /**
-     * 附件名称
+     * 文件名称
      */
-    @NotBlank(message = "附件名称不能为空", groups = { AddGroup.class, EditGroup.class })
-    private String name;
+    @NotBlank(message = "文件名称不能为空", groups = {AddGroup.class, EditGroup.class})
+    private String typeName;
 
     /**
-     * 文件路径
+     * 文件类型值
      */
-    @NotBlank(message = "文件路径不能为空", groups = { AddGroup.class, EditGroup.class })
-    private String path;
-
-    /**
-     * 文件类型/多种类型存放在字典
-     */
-    @NotNull(message = "文件类型/多种类型存放在字典不能为空", groups = { AddGroup.class, EditGroup.class })
-    private Long stype;
+    @NotNull(message = "文件类型值不能为空", groups = {AddGroup.class, EditGroup.class})
+    private Integer typeValue;
 
     /**
      * 是否删除
      */
-    @NotNull(message = "是否删除不能为空", groups = { AddGroup.class, EditGroup.class })
-    private Long ideleted;
+    @NotNull(message = "是否删除不能为空", groups = {AddGroup.class, EditGroup.class})
+    private Integer ideleted;
+
+    /**
+     * 表示是法人 还是个人
+     */
+    private Integer peopleType;
 
 
 }

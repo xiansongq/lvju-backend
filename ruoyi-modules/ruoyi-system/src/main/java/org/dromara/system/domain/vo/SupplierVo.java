@@ -70,6 +70,9 @@ public class SupplierVo implements Serializable {
     @ExcelDictFormat(dictType = "lvju_supplier_type")
     private Long stype;
 
+    @ExcelProperty(value = "1：法人 2个人", converter = ExcelDictConvert.class)
+    @ExcelDictFormat(dictType = "lvju_agent_type")
+    private Long agentType;
     /**
      * 创建时间
      */

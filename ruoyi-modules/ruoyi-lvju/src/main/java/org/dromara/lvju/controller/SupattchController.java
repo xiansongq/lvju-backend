@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.*;
 import cn.dev33.satoken.annotation.SaCheckPermission;
+import org.dromara.lvju.domain.vo.SupInfoVo;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.Validated;
 import org.dromara.common.idempotent.annotation.RepeatSubmit;
@@ -26,7 +27,7 @@ import org.dromara.common.mybatis.core.page.TableDataInfo;
  * 供应商资质证明材料
  *
  * @author xsQian
- * @date 2023-12-18
+ * @date 2024-01-05
  */
 @Validated
 @RequiredArgsConstructor
@@ -36,6 +37,11 @@ public class SupattchController extends BaseController {
 
     private final ISupattchService supattchService;
 
+    @SaCheckPermission("lvju:supattch:list")
+    @GetMapping("/all")
+    public TableDataInfo<SupInfoVo> all(SupattchBo bo, PageQuery pageQuery) {
+        return supattchService.queryAll(bo, pageQuery);
+    }
     /**
      * 查询供应商资质证明材料列表
      */
@@ -66,17 +72,6 @@ public class SupattchController extends BaseController {
     public R<SupattchVo> getInfo(@NotNull(message = "主键不能为空")
                                      @PathVariable Long id) {
         return R.ok(supattchService.queryById(id));
-    }
-
-    /*
-    * 根据用户编号查询供应商资质证明材料详细信息
-    *
-    * @Param userid
- * */
-    @SaCheckPermission("lvju:supattch:query")
-    @GetMapping("/{userid}")
-    public List<SupattchVo> getInfoByUserid(@PathVariable Long userid){
-        return supattchService.queryByUserid(userid);
     }
 
     /**

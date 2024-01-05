@@ -35,7 +35,7 @@ public class SupplierServiceImpl implements ISupplierService {
      * 查询供应商信息
      */
     @Override
-    public SupplierVo queryById(Long id){
+    public SupplierVo queryById(Long id) {
         return baseMapper.selectVoById(id);
     }
 
@@ -67,6 +67,8 @@ public class SupplierServiceImpl implements ISupplierService {
         lqw.eq(StringUtils.isNotBlank(bo.getSdnum()), Supplier::getSdnum, bo.getSdnum());
         lqw.eq(StringUtils.isNotBlank(bo.getIphone()), Supplier::getIphone, bo.getIphone());
         lqw.eq(bo.getStype() != null, Supplier::getStype, bo.getStype());
+        lqw.eq(bo.getAgentType()!=null, Supplier::getAgentType, bo.getAgentType());
+
         return lqw;
     }
 
@@ -97,7 +99,7 @@ public class SupplierServiceImpl implements ISupplierService {
     /**
      * 保存前的数据校验
      */
-    private void validEntityBeforeSave(Supplier entity){
+    private void validEntityBeforeSave(Supplier entity) {
         //TODO 做一些数据校验,如唯一约束
     }
 
@@ -106,7 +108,7 @@ public class SupplierServiceImpl implements ISupplierService {
      */
     @Override
     public Boolean deleteWithValidByIds(Collection<Long> ids, Boolean isValid) {
-        if(isValid){
+        if (isValid) {
             //TODO 做一些业务上的校验,判断是否需要校验
         }
         return baseMapper.deleteBatchIds(ids) > 0;

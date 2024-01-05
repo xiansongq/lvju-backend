@@ -14,7 +14,6 @@ import java.io.Serializable;
 import java.util.Date;
 
 
-
 /**
  * 房源信息表视图对象 lv_house
  *
@@ -69,7 +68,7 @@ public class HouseVo implements Serializable {
      * 描述
      */
     @ExcelProperty(value = "描述")
-    @TableField(value="`describe`")
+    @TableField(value = "`describe`")
 
     private String describe;
 
@@ -90,6 +89,14 @@ public class HouseVo implements Serializable {
      */
     @ExcelProperty(value = "房间数量")
     private Long num;
+
+    /*城市名称*/
+    @ExcelProperty(value = "城市名称")
+    private String cityname;
+
+    /*小区名称*/
+    @ExcelProperty(value = "小区名称")
+    private String estatename;
 
     /**
      * 创建时间

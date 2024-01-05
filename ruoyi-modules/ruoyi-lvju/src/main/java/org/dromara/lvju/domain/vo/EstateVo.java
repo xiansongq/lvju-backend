@@ -83,5 +83,11 @@ public class EstateVo implements Serializable {
     @ExcelProperty(value = "商业介绍")
     private String busdescribe;
 
+    /**
+     * 城市名称
+     */
+    @ExcelProperty(value = "商业介绍")
+    private String cityname;
+
 
 }

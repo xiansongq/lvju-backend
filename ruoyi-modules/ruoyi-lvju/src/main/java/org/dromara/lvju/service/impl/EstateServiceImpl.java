@@ -11,6 +11,9 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.toolkit.Wrappers;
 import lombok.RequiredArgsConstructor;
 import org.dromara.lvju.domain.City;
+import org.dromara.lvju.domain.vo.CityVo;
+import org.dromara.lvju.domain.vo.HouseVo;
+import org.dromara.lvju.mapper.CityMapper;
 import org.springframework.stereotype.Service;
 import org.dromara.lvju.domain.bo.EstateBo;
 import org.dromara.lvju.domain.vo.EstateVo;
@@ -21,6 +24,8 @@ import org.dromara.lvju.service.IEstateService;
 import java.util.List;
 import java.util.Map;
 import java.util.Collection;
+import java.util.Optional;
+import java.util.stream.Collectors;
 
 /**
  * 小区信息操作Service业务层处理
@@ -33,13 +38,68 @@ import java.util.Collection;
 public class EstateServiceImpl implements IEstateService {
 
     private final EstateMapper baseMapper;
+    private final CityMapper cityMapper;
+
+    /**
+     * 根据城市id 获取城市名称
+     *
+     * @param vo
+     */
+    private void addCityName(EstateVo vo) {
+
+        CityVo ossInfo = cityMapper.selectVoById(vo.getCityid());
+        Optional.ofNullable(ossInfo).ifPresent(e -> vo.setCityname(ossInfo.getName()));
+    }
+
+    /**
+     * 批量查询城市名称并添加
+     *
+     * @param pages
+     */
+
+    private void addCityNames(Page<EstateVo> pages) {
+        // 提取oosid 方便批量查询
+        List<Long> ids = pages.getRecords().stream().map(EstateVo::getCityid).collect(Collectors.toList());
+        // 批量查询
+        List<CityVo> ossVoList = cityMapper.selectVoList(Wrappers.lambdaQuery(City.class).in(City::getId, ids));
+        //构造map 方便实体关系的映射
+        Map<Long, String> ossInfoMap = ossVoList.stream()
+            .collect(Collectors.toMap(CityVo::getId, CityVo::getName));
+        // 添加补充的信息
+        for(EstateVo vo: pages.getRecords()){
+            vo.setCityname(ossInfoMap.get(vo.getCityid()));
+        }
+    }
+
+    /**
+     * 批量查询 城市名称并添加
+     *
+     * @param pages
+     */
+
+    private void addCityNames(List<EstateVo> pages) {
+        // 提取oosid 方便批量查询
+        List<Long> ids = pages.stream().map(EstateVo::getCityid).collect(Collectors.toList());
+        // 批量查询
+        List<CityVo> ossVoList = cityMapper.selectVoList(Wrappers.lambdaQuery(City.class).in(City::getId, ids));
+        //构造map 方便实体关系的映射
+        Map<Long, String> ossInfoMap = ossVoList.stream()
+            .collect(Collectors.toMap(CityVo::getId, CityVo::getName));
+        // 添加补充的信息
+        pages.forEach(e -> {
+            e.setCityname(ossInfoMap.get(e.getCityid()));
+        });
+    }
 
     /**
      * 查询小区信息操作
      */
     @Override
     public EstateVo queryById(Long id) {
-        return baseMapper.selectVoById(id);
+        EstateVo estateVo= baseMapper.selectVoById(id);;
+        Optional.ofNullable(estateVo).ifPresent(this::addCityName);
+
+        return estateVo;
     }
 
     /**
@@ -49,6 +109,9 @@ public class EstateServiceImpl implements IEstateService {
     public TableDataInfo<EstateVo> queryPageList(EstateBo bo, PageQuery pageQuery) {
         LambdaQueryWrapper<Estate> lqw = buildQueryWrapper(bo);
         Page<EstateVo> result = baseMapper.selectVoPage(pageQuery.build(), lqw);
+        if(result.getRecords().size()>0){
+            addCityNames(result);
+        }
         return TableDataInfo.build(result);
     }
 
@@ -58,8 +121,11 @@ public class EstateServiceImpl implements IEstateService {
     @Override
     public List<EstateVo> queryList(EstateBo bo) {
         LambdaQueryWrapper<Estate> lqw = buildQueryWrapper(bo);
-
-        return baseMapper.selectVoList(lqw);
+        List<EstateVo> estateVoList=baseMapper.selectVoList(lqw);
+        if(estateVoList.size()>0){
+            addCityNames(estateVoList);
+        }
+        return estateVoList;
     }
 
     private LambdaQueryWrapper<Estate> buildQueryWrapper(EstateBo bo) {

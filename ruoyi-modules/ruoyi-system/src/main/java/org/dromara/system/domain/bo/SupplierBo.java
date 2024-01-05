@@ -24,44 +24,46 @@ public class SupplierBo extends BaseEntity {
     /**
      * id
      */
-    @NotNull(message = "id不能为空", groups = { EditGroup.class })
+    @NotNull(message = "id不能为空", groups = {EditGroup.class})
     private Long id;
 
     /**
      * 用户编号
      */
-    @NotBlank(message = "用户编号不能为空", groups = { AddGroup.class, EditGroup.class })
+    @NotBlank(message = "用户编号不能为空", groups = {AddGroup.class, EditGroup.class})
     private String userid;
 
     /**
      * 公司名称
      */
-    @NotBlank(message = "公司名称不能为空", groups = { AddGroup.class, EditGroup.class })
+    @NotBlank(message = "公司名称不能为空", groups = {AddGroup.class, EditGroup.class})
     private String company;
 
     /**
      * 联系人
      */
-    @NotBlank(message = "联系人不能为空", groups = { AddGroup.class, EditGroup.class })
+    @NotBlank(message = "联系人不能为空", groups = {AddGroup.class, EditGroup.class})
     private String name;
 
     /**
      * 身份证号
      */
-    @NotBlank(message = "身份证号不能为空", groups = { AddGroup.class, EditGroup.class })
+    @NotBlank(message = "身份证号不能为空", groups = {AddGroup.class, EditGroup.class})
     private String sdnum;
 
     /**
      * 联系电话
      */
-    @NotBlank(message = "联系电话不能为空", groups = { AddGroup.class, EditGroup.class })
+    @NotBlank(message = "联系电话不能为空", groups = {AddGroup.class, EditGroup.class})
     private String iphone;
 
     /**
      * 1：供应商 2：代理商 3：个人
      */
-    @NotNull(message = "1：供应商 2：代理商 3：个人不能为空", groups = { AddGroup.class, EditGroup.class })
+    @NotNull(message = "1：供应商 2：代理商 3：个人不能为空", groups = {AddGroup.class, EditGroup.class})
     private Long stype;
 
+    @NotNull(message = "1 法人 2 个人", groups = {AddGroup.class, EditGroup.class})
+    private Long agentType;
 
 }

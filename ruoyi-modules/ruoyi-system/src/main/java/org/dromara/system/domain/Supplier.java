@@ -60,6 +60,11 @@ public class Supplier extends BaseEntity {
     private Long stype;
 
     /**
+     * 1：法人 2 个人
+     */
+    private Long agentType;
+
+    /**
      * 是否删除
      */
     @TableLogic

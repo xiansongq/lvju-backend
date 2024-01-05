@@ -11,7 +11,7 @@ import java.io.Serial;
  * 供应商资质证明材料对象 lv_supattch
  *
  * @author xsQian
- * @date 2023-12-18
+ * @date 2024-01-05
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -33,29 +33,24 @@ public class Supattch extends BaseEntity {
     private Long userid;
 
     /**
-     * 附件编号
+     * ossId
      */
-    private String supplierid;
+    private Long ossId;
 
     /**
-     * 附件名称
+     * 文件名称
      */
-    private String name;
+    private String typeName;
 
     /**
-     * 文件路径
+     * 文件类型值
      */
-    private String path;
-
-    /**
-     * 文件类型/多种类型存放在字典
-     */
-    private Long stype;
+    private Integer typeValue;
 
     /**
      * 是否删除
      */
-    private Long ideleted;
+    private Integer ideleted;
 
 
 }

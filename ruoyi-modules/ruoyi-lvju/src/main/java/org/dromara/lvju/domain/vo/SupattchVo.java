@@ -18,7 +18,7 @@ import java.util.Date;
  * 供应商资质证明材料视图对象 lv_supattch
  *
  * @author xsQian
- * @date 2023-12-18
+ * @date 2024-01-05
  */
 @Data
 @ExcelIgnoreUnannotated
@@ -41,36 +41,35 @@ public class SupattchVo implements Serializable {
     private Long userid;
 
     /**
-     * 附件编号
+     * ossId
      */
-    @ExcelProperty(value = "附件编号")
-    private String supplierid;
+    @ExcelProperty(value = "ossId")
+    private Long ossId;
 
     /**
-     * 附件名称
+     * 文件名称
      */
-    @ExcelProperty(value = "附件名称")
-    private String name;
+    @ExcelProperty(value = "文件名称")
+    private String typeName;
 
     /**
-     * 文件路径
+     * 文件类型值
      */
-    @ExcelProperty(value = "文件路径")
-    private String path;
-
-    /**
-     * 文件类型/多种类型存放在字典
-     */
-    @ExcelProperty(value = "文件类型/多种类型存放在字典", converter = ExcelDictConvert.class)
-    @ExcelDictFormat(dictType = "lvjv_supfile_type")
-    private Long stype;
+    @ExcelProperty(value = "文件类型值")
+    private Integer typeValue;
 
     /**
      * 是否删除
      */
     @ExcelProperty(value = "是否删除", converter = ExcelDictConvert.class)
     @ExcelDictFormat(dictType = "lvju_delete_type")
-    private Long ideleted;
+    private Integer ideleted;
+
+    /**
+     * 创建时间
+     */
+    @ExcelProperty(value = "创建时间")
+    private Date createTime;
 
 
 }
