@@ -7,6 +7,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.constraints.*;
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import org.dromara.lvju.domain.vo.SupInfoVo;
+import org.dromara.system.service.ISysOssService;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.validation.annotation.Validated;
 import org.dromara.common.idempotent.annotation.RepeatSubmit;
@@ -36,12 +37,33 @@ import org.dromara.common.mybatis.core.page.TableDataInfo;
 public class SupattchController extends BaseController {
 
     private final ISupattchService supattchService;
+    private final ISysOssService service;
 
     @SaCheckPermission("lvju:supattch:list")
     @GetMapping("/all")
     public TableDataInfo<SupInfoVo> all(SupattchBo bo, PageQuery pageQuery) {
         return supattchService.queryAll(bo, pageQuery);
     }
+
+    /**
+     * 删除对应供应商的 附件信息
+     *
+     * @param vo
+     * @return
+     */
+    @SaCheckPermission("lvju:supattch:delete")
+    @PutMapping("/delete")
+    public R<Void> delete(SupInfoVo vo) {
+        // 首先根据ossid 删除文件信息
+        try {
+            service.deleteWithValidByIds(List.of(vo.getOssId()), true);
+        } catch (Exception e) {
+            return R.fail("删除失败");
+        }
+        // 删除对应的 附件记录
+        return toAjax(supattchService.deleteWithValidByIds(List.of(vo.getId()), true));
+    }
+
     /**
      * 查询供应商资质证明材料列表
      */
@@ -70,7 +92,7 @@ public class SupattchController extends BaseController {
     @SaCheckPermission("lvju:supattch:query")
     @GetMapping("/{id}")
     public R<SupattchVo> getInfo(@NotNull(message = "主键不能为空")
-                                     @PathVariable Long id) {
+                                 @PathVariable Long id) {
         return R.ok(supattchService.queryById(id));
     }
 
