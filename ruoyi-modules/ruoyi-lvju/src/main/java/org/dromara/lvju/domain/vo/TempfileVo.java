@@ -1,6 +1,6 @@
 package org.dromara.lvju.domain.vo;
 
-import org.dromara.lvju.domain.Supattch;
+import org.dromara.lvju.domain.Tempfile;
 import com.alibaba.excel.annotation.ExcelIgnoreUnannotated;
 import com.alibaba.excel.annotation.ExcelProperty;
 import org.dromara.common.excel.annotation.ExcelDictFormat;
@@ -13,16 +13,17 @@ import java.io.Serializable;
 import java.util.Date;
 
 
+
 /**
- * 供应商资质证明材料视图对象 lv_supattch
+ * 模板文件信息管理视图对象 lvju_tempfile
  *
  * @author xsQian
- * @date 2024-01-05
+ * @date 2024-01-07
  */
 @Data
 @ExcelIgnoreUnannotated
-@AutoMapper(target = Supattch.class)
-public class SupattchVo implements Serializable {
+@AutoMapper(target = Tempfile.class)
+public class TempfileVo implements Serializable {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -34,29 +35,23 @@ public class SupattchVo implements Serializable {
     private Long id;
 
     /**
-     * 用户ID
+     * 模板名称
      */
-    @ExcelProperty(value = "用户ID")
-    private Long userid;
+    @ExcelProperty(value = "模板名称")
+    private String tempName;
 
     /**
-     * ossId
+     * 文件存储id
      */
-    @ExcelProperty(value = "ossId")
+    @ExcelProperty(value = "文件存储id")
     private Long ossId;
 
     /**
-     * 文件名称
+     * 法人/个人
      */
-    @ExcelProperty(value = "文件名称")
-    private String typeName;
-
-    /**
-     * 文件类型值
-     */
-    @ExcelProperty(value = "文件类型值")
-    private Integer typeValue;
-
+    @ExcelProperty(value = "法人/个人", converter = ExcelDictConvert.class)
+    @ExcelDictFormat(dictType = "lvju_agent_type")
+    private Integer agentType;
 
     /**
      * 创建时间

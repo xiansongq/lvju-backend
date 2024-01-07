@@ -128,7 +128,6 @@ public class SupattchServiceImpl implements ISupattchService {
         lqw.eq(bo.getOssId() != null, Supattch::getOssId, bo.getOssId());
         lqw.like(StringUtils.isNotBlank(bo.getTypeName()), Supattch::getTypeName, bo.getTypeName());
         lqw.eq(bo.getTypeValue() != null, Supattch::getTypeValue, bo.getTypeValue());
-        lqw.eq(bo.getIdeleted() != null, Supattch::getIdeleted, bo.getIdeleted());
         return lqw;
     }
 

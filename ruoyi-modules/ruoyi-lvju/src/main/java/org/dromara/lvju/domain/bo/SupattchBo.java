@@ -50,11 +50,6 @@ public class SupattchBo extends BaseEntity {
     @NotNull(message = "文件类型值不能为空", groups = {AddGroup.class, EditGroup.class})
     private Integer typeValue;
 
-    /**
-     * 是否删除
-     */
-    @NotNull(message = "是否删除不能为空", groups = {AddGroup.class, EditGroup.class})
-    private Integer ideleted;
 
     /**
      * 表示是法人 还是个人

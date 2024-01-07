@@ -8,15 +8,15 @@ import lombok.EqualsAndHashCode;
 import java.io.Serial;
 
 /**
- * 供应商资质证明材料对象 lv_supattch
+ * 模板文件信息管理对象 lvju_tempfile
  *
  * @author xsQian
- * @date 2024-01-05
+ * @date 2024-01-07
  */
 @Data
 @EqualsAndHashCode(callSuper = true)
-@TableName("lv_supattch")
-public class Supattch extends BaseEntity {
+@TableName("lvju_tempfile")
+public class Tempfile extends BaseEntity {
 
     @Serial
     private static final long serialVersionUID = 1L;
@@ -28,24 +28,25 @@ public class Supattch extends BaseEntity {
     private Long id;
 
     /**
-     * 用户ID
+     * 模板名称
      */
-    private Long userid;
+    private String tempName;
 
     /**
-     * ossId
+     * 文件存储id
      */
     private Long ossId;
 
     /**
-     * 文件名称
+     * 法人/个人
      */
-    private String typeName;
+    private Integer agentType;
 
     /**
-     * 文件类型值
+     * 删除标志
      */
-    private Integer typeValue;
+    @TableLogic
+    private String delFlag;
 
 
 }
